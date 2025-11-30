@@ -11,7 +11,7 @@ pipeline {
         
         // TODO: UPDATE THIS PATH! Example: 'C:\\apache-tomcat-9.0.80'
         // Note: Use double backslashes (\\) for Windows paths in Groovy
-        TOMCAT_HOME = 'C:\\Path\\To\\Your\\Tomcat' 
+        TOMCAT_HOME = 'C:\\Program Files\\Apache Software Foundation\\Tomcat 11.0' 
         
         WAR_NAME = 'EduAssessPro.war'
     }
