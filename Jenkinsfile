@@ -17,26 +17,23 @@ pipeline {
 
         stage('Build') {
             steps {
-                // Example for Maven project; adjust if you use Gradle, npm, etc.
                 sh 'mvn clean package'
             }
             post {
                 success {
-                    archiveArtifacts artifacts: 'target/*.war', fingerprint: true
+                    // FIXED: Changed 'target' to 'build_output'
+                    archiveArtifacts artifacts: 'build_output/*.war', fingerprint: true
                 }
             }
         }
 
         stage('Deploy to Tomcat') {
             steps {
-                // Stop Tomcat before deploying (optional but safer for redeploys)
                 sh "${env.TOMCAT_HOME}/bin/shutdown.sh || true"
                 sleep 5
-                // Deploy the new WAR file (replace ROOT.war if deploying as the main app)
-                sh "cp target/*.war ${env.TOMCAT_HOME}/webapps/${env.WAR_NAME}"
-                // Start Tomcat again
+                // FIXED: Changed 'target' to 'build_output'
+                sh "cp build_output/*.war ${env.TOMCAT_HOME}/webapps/${env.WAR_NAME}"
                 sh "${env.TOMCAT_HOME}/bin/startup.sh"
-                // Wait for start
                 sleep 10
             }
         }
